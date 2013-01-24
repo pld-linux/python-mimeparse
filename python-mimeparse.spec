@@ -6,7 +6,7 @@
 Summary:	Python module for parsing mime-type names
 Name:		python-%{module}
 Version:	0.1.3
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries/Python
 URL:		https://mimeparse.googlecode.com/
