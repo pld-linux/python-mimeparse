@@ -8,7 +8,7 @@ Summary:	Python 2.x module for parsing mime-type names
 Summary(pl.UTF-8):	Moduł Pythona 2.x do analizy nazw typów MIME
 Name:		python-%{module}
 Version:	0.1.4
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries/Python
 #Source0:	https://mimeparse.googlecode.com/files/%{module}-%{version}.tar.gz
