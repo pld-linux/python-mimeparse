@@ -2,6 +2,7 @@
 # Conditional build:
 %bcond_without	python2		# Python 2.x module
 %bcond_without	python3		# Python 3.x module
+%bcond_without	tests		# tests run
 
 %define		module mimeparse
 Summary:	Python 2.x module for parsing mime-type names
@@ -11,14 +12,14 @@ Version:	0.1.4
 Release:	5
 License:	MIT
 Group:		Libraries/Python
-#Source0:	https://mimeparse.googlecode.com/files/%{module}-%{version}.tar.gz
+#Source0Download: https://pypi.python.org/pypi/mimeparse
 Source0:	https://pypi.python.org/packages/source/p/python-mimeparse/%{name}-%{version}.tar.gz
 # Source0-md5:	1d2816a16f17dcfe0c613da611fe7e13
 URL:		https://mimeparse.googlecode.com/
-BuildRequires:	python-devel
-%{?with_python3:BuildRequires:	python3-devel}
+%{?with_python2:BuildRequires:	python-devel >= 1:2.5}
+%{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.710
+BuildRequires:	rpmbuild(macros) >= 1.714
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -48,23 +49,23 @@ oraz dopasowywania ich do listy zakresów mediów.
 
 %build
 %if %{with python2}
-%py_build --build-base py2
-%endif
-
-%if %{with python3}
-%py3_build --build-base py3
-%endif
+%py_build
 
 %if %{with tests}
-%if %{with python2}
-cd py2
-%{__python} mimeparse_test.py
+cd build-2
+ln -sf ../testdata.json .
+%{__python} ../mimeparse_test.py
 cd ..
+%endif
 %endif
 
 %if %{with python3}
-cd py3
-%{__python3} mimeparse_test.py
+%py3_build
+
+%if %{with tests}
+cd build-3
+ln -sf ../testdata.json .
+%{__python3} ../mimeparse_test.py
 cd ..
 %endif
 %endif
@@ -73,21 +74,13 @@ cd ..
 rm -rf $RPM_BUILD_ROOT
 
 %if %{with python2}
-%py_build \
-	--build-base py2 \
-	install \
-	--optimize=2 \
-	--root=$RPM_BUILD_ROOT
+%py_install
 
 %py_postclean
 %endif
 
 %if %{with python3}
-%py3_build \
-	--build-base py3 \
-	install \
-	--optimize=2 \
-	--root=$RPM_BUILD_ROOT
+%py3_install
 %endif
 
 %clean
