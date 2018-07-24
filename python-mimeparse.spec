@@ -8,16 +8,22 @@
 Summary:	Python 2.x module for parsing mime-type names
 Summary(pl.UTF-8):	Moduł Pythona 2.x do analizy nazw typów MIME
 Name:		python-%{module}
-Version:	0.1.4
-Release:	8
+Version:	1.6.0
+Release:	1
 License:	MIT
 Group:		Libraries/Python
-#Source0Download: https://pypi.python.org/pypi/mimeparse
-Source0:	https://pypi.python.org/packages/source/p/python-mimeparse/%{name}-%{version}.tar.gz
-# Source0-md5:	1d2816a16f17dcfe0c613da611fe7e13
-URL:		https://mimeparse.googlecode.com/
-%{?with_python2:BuildRequires:	python-devel >= 1:2.5}
-%{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
+#Source0Download: https://pypi.org/pypi/mimeparse/
+Source0:	https://files.pythonhosted.org/packages/source/p/python-mimeparse/%{name}-%{version}.tar.gz
+# Source0-md5:	a32ae1df93be1ddb581d1c0fa124bab4
+URL:		https://github.com/dbtsai/python-mimeparse
+%if %{with python2}
+BuildRequires:	python-devel >= 1:2.7
+BuildRequires:	python-setuptools
+%endif
+%if %{with python3}
+BuildRequires:	python3-devel >= 1:3.2
+BuildRequires:	python3-setuptools
+%endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 BuildArch:	noarch
@@ -89,7 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files
 %defattr(644,root,root,755)
-%doc README
+%doc LICENSE README.rst
 %{py_sitescriptdir}/mimeparse.py[co]
 %{py_sitescriptdir}/python_mimeparse-%{version}-py*.egg-info
 %endif
@@ -97,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python3}
 %files -n python3-%{module}
 %defattr(644,root,root,755)
-%doc README
+%doc LICENSE README.rst
 %{py3_sitescriptdir}/mimeparse.py
 %{py3_sitescriptdir}/__pycache__/mimeparse.*.py[co]
 %{py3_sitescriptdir}/python_mimeparse-%{version}-py*.egg-info
