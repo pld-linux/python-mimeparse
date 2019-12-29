@@ -12,7 +12,7 @@ Version:	1.6.0
 Release:	2
 License:	MIT
 Group:		Libraries/Python
-#Source0Download: https://pypi.org/pypi/mimeparse/
+#Source0Download: https://pypi.org/pypi/python-mimeparse/
 Source0:	https://files.pythonhosted.org/packages/source/p/python-mimeparse/%{name}-%{version}.tar.gz
 # Source0-md5:	a32ae1df93be1ddb581d1c0fa124bab4
 URL:		https://github.com/dbtsai/python-mimeparse
